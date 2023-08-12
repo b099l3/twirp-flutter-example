@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package icecreamshop;
+
+// The IceCreamService provides operations for managing orders.
+service IceCreamService {
+  // Creates a new order.
+  rpc CreateOrder(IceCream) returns (Order) {}
+
+  // Fetches details about an order.
+  rpc GetOrderDetails(GetOrderDetailsRequest) returns (Order) {}
+
+  // Marks an order as ready.
+  rpc MarkOrderReady(MarkOrderReadyRequest) returns (Order) {}
+}
+
+// The IceCream message represents an ice cream in our system.
+message IceCream {
+  string flavor = 1;
+  string size = 2;
+  repeated string toppings = 3;
+}
+
+// The Order message represents an order in our system.
+message Order {
+  int32 order_id = 1;
+  IceCream ice_cream = 2;
+  bool ready = 3; // Is the order ready for pickup?
+}
+
+// The GetOrderDetailsRequest represents a request to fetch details about an
+// order.
+message GetOrderDetailsRequest { int32 order_id = 1; }
+
+// The MarkOrderReadyRequest represents a request to mark an order as ready.
+message MarkOrderReadyRequest { int32 order_id = 1; }
